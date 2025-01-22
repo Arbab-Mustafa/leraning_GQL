@@ -1,0 +1,37 @@
+{
+  "name": "graphql",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "tsc-watch --onSuccess \"npm start\"",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arbab-Mustafa/leraning_GQL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Arbab-Mustafa/leraning_GQL/issues"
+  },
+  "homepage": "https://github.com/Arbab-Mustafa/leraning_GQL#readme",
+  "description": "",
+  "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "graphql": "^16.10.0",
+    "graphql-tag": "^2.12.6",
+    "tsc-watch": "^6.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/express-graphql": "^0.8.2",
+    "@types/node": "^22.10.7",
+    "typescript": "^5.7.3"
+  }
+}
