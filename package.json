@@ -26,12 +26,13 @@
     "express": "^4.21.2",
     "graphql": "^16.10.0",
     "graphql-tag": "^2.12.6",
+    "mongoose": "^8.9.5",
     "tsc-watch": "^6.2.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/express-graphql": "^0.8.2",
-    "@types/node": "^22.10.7",
+    "@types/node": "^22.10.10",
     "typescript": "^5.7.3"
   }
 }
