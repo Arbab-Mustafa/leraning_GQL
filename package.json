@@ -23,6 +23,7 @@
   "dependencies": {
     "@apollo/server": "^4.11.3",
     "body-parser": "^1.20.3",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "graphql": "^16.10.0",
     "graphql-tag": "^2.12.6",
