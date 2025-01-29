@@ -3,7 +3,7 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import connectToMongoDB from "./database";
 import dotenv from "dotenv";
 import { UserDefs } from "./GraphqlTypes";
-import { userResolver } from "./GraphqlResolver";
+import { createUser, deleteUser, userResolver } from "./GraphqlResolver";
 
 // Load environment variables
 dotenv.config();
@@ -20,6 +20,10 @@ const server = new ApolloServer({
   resolvers: {
     Query: {
       user: userResolver,
+    },
+    Mutation: {
+      createUser: createUser,
+      deleteUser: deleteUser,
     },
   },
 });
