@@ -12,6 +12,13 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please provide an email"],
     unique: true,
   },
+
+  courses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

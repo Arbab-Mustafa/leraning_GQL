@@ -1,8 +1,21 @@
 import User from "./model/userModel";
+import Course from "./model/courseModel";
+import Teacher from "./model/teacherModel";
 
 interface UserProps {
   name: string;
   email: string;
+}
+
+interface CourseProps {
+  title: string;
+  enrolledUsers: string[];
+}
+
+interface TeacherProps {
+  name: string;
+  courses: string[];
+  user: string[];
 }
 
 // get all user resolver
@@ -41,4 +54,48 @@ export const deleteUser = async (_: any, { name }: { name: string }) => {
     console.error("Error deleting user:", error);
     throw new Error("Failed to delete user");
   }
+};
+
+// ---------------------------create course resolver
+
+export const courseResolver = async () => {
+  const course = await Course.find();
+
+  if (!course) {
+    return "No course found";
+  }
+
+  return course;
+};
+
+export const createCourse = async (_: any, { title }: CourseProps) => {
+  const course = await Course.create({ title });
+
+  if (!course) {
+    return "Course not created";
+  }
+
+  return course;
+};
+
+//---------------------------------create teacher resolver
+
+export const teacherResolver = async () => {
+  const teacher = await Teacher.find();
+
+  if (!teacher) {
+    return "No teacher found";
+  }
+
+  return teacher;
+};
+
+export const createTeacher = async (_: any, { name }: TeacherProps) => {
+  const teacher = await Teacher.create({ name });
+
+  if (!teacher) {
+    return "Teacher not created";
+  }
+
+  return teacher;
 };
