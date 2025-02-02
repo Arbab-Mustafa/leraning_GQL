@@ -2,23 +2,25 @@
 
 export const UserDefs = `
 
-type User {
-      name: String
-      email: String 
-      courses: [Course]
-      teachers: [Teacher]
-      }
+  type Teacher {
+  id: ID!
+  name: String!
+  courses: [Course!]
+}
 
 type Course {
-      title : String
-      enrolledUsers : [User]
-      }
+  id: ID!
+  title: String!
+  enrolledUsers: [User!]
+}
 
-type Teacher {
-      name: String 
-      courses: [Course]
-      
-      }
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  courses: [Course!]
+  teachers: [Teacher!]
+}
 
 
 
@@ -44,14 +46,13 @@ type Teacher {
     }
 
 
-
-    type Mutation {
-    createUser(name: String, email: String): User
-    deleteUser(name: String!): User
-    createCourse(title: String): Course
-    createTeacher(name: String): Teacher
-    
-    }
+ type Mutation {
+ createTeacher(name: String!): Teacher!
+  createUser(name: String!, email: String!): User!
+  createCourse(title: String!): Course!
+  enrollUserToCourse(userId: ID!, courseId: ID!): Course!
+  assignTeacherToCourse(teacherId: ID!, courseId: ID!): Teacher!
+}
       
     
     

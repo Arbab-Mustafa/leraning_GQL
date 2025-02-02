@@ -6,7 +6,6 @@ import { UserDefs } from "./GraphqlTypes";
 import {
   createCourse,
   createUser,
-  deleteUser,
   userResolver,
   courseResolver,
   teacherResolver,
@@ -33,7 +32,6 @@ const server = new ApolloServer({
     },
     Mutation: {
       createUser: createUser,
-      deleteUser: deleteUser,
       createCourse: createCourse,
       createTeacher: createTeacher,
     },
