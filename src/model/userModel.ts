@@ -19,6 +19,12 @@ const userSchema = new mongoose.Schema({
       ref: "Course",
     },
   ],
+  teachers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Teacher",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

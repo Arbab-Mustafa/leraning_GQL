@@ -21,23 +21,6 @@ type User {
   courses: [Course!]
   teachers: [Teacher!]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     type Query {
       user: [User]
       Course: [Course]
