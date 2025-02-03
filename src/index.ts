@@ -10,6 +10,8 @@ import {
   courseResolver,
   teacherResolver,
   createTeacher,
+  enrollUserToCourse,
+  assignTeacherToCourse,
 } from "./GraphqlResolver";
 
 // Load environment variables
@@ -34,6 +36,8 @@ const server = new ApolloServer({
       createUser: createUser,
       createCourse: createCourse,
       createTeacher: createTeacher,
+      enrollUserToCourse: enrollUserToCourse,
+      assignTeacherToCourse: assignTeacherToCourse,
     },
   },
 });

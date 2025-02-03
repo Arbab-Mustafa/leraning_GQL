@@ -92,6 +92,7 @@ export const enrollUserToCourse = async (
   { userId, courseId }: { userId: string; courseId: string }
 ) => {
   try {
+    console.log("Validating user and course IDs...");
     if (
       !mongoose.Types.ObjectId.isValid(userId) ||
       !mongoose.Types.ObjectId.isValid(courseId)
@@ -99,6 +100,7 @@ export const enrollUserToCourse = async (
       throw new Error("Invalid user ID or course ID");
     }
 
+    console.log("Fetching user and course...");
     const user = await User.findById(userId);
     const course = await Course.findById(courseId);
 
@@ -106,13 +108,16 @@ export const enrollUserToCourse = async (
       throw new Error("User or course not found");
     }
 
+    console.log("Checking if user is already enrolled...");
     if (course.enrolledUsers.includes(userId)) {
       throw new Error("User is already enrolled in this course");
     }
 
+    console.log("Enrolling user...");
     course.enrolledUsers.push(userId);
     await course.save();
 
+    console.log("User enrolled successfully");
     return course;
   } catch (error) {
     console.error("Error enrolling user to course:", error);

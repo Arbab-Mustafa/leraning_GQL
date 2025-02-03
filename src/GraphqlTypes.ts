@@ -31,10 +31,10 @@ type User {
 
  type Mutation {
  createTeacher(name: String!): Teacher!
-  createUser(name: String!, email: String!): User!
-  createCourse(title: String!): Course!
-  enrollUserToCourse(userId: ID!, courseId: ID!): Course!
-  assignTeacherToCourse(teacherId: ID!, courseId: ID!): Teacher!
+ createUser(name: String!, email: String!): User!
+ createCourse(title: String!): Course!
+ enrollUserToCourse(userId: ID!, courseId: ID!): Course!
+ assignTeacherToCourse(teacherId: ID!, courseId: ID!): Teacher!
 }
       
     
