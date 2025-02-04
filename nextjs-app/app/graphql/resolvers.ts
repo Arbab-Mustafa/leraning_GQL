@@ -1,16 +1,10 @@
-import User from "../model/User";
+import { addUser, getUsers } from "./_res/index";
 
 export const resolvers = {
   Query: {
-    async getUsers() {
-      return await User.find();
-    },
+    getUsers: getUsers,
   },
   Mutation: {
-    async addUser(_: any, { name, email }: { name: string; email: string }) {
-      const newUser = new User({ name, email });
-      await newUser.save();
-      return newUser;
-    },
+    addUser: addUser,
   },
 };
