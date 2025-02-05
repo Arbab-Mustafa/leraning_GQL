@@ -5,6 +5,8 @@ export const typeDefs = gql`
     id: ID!
     name: String!
     email: String!
+    course: [Course]
+    teacher: [Teacher]
   }
 
   type Course {
@@ -15,7 +17,7 @@ export const typeDefs = gql`
 
   type Teacher {
     id: ID!
-    name: String!
+    name: String
     courses: [Course]
     user: [User]
   }
@@ -31,6 +33,6 @@ export const typeDefs = gql`
     addCourse(title: String!): Course!
     addTeacher(name: String!): Teacher!
     assingCourse(userId: ID!, courseId: ID!): Course!
-    assingTeacher(userId: ID!, teacherId: ID!): Teacher!
+    assingTeacher(courseId: ID!, teacherId: ID!): Teacher!
   }
 `;

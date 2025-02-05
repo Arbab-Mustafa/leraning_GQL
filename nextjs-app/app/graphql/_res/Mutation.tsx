@@ -19,7 +19,7 @@ interface AssignCourseProp {
 
 interface AssignTeacherProp {
   name: string;
-  userId: string;
+  courseId: string;
   teacherId: string;
 }
 
@@ -59,16 +59,20 @@ const addTeacher = async (_: any, { name }: AssignTeacherProp) => {
 
 const assingTeacher = async (
   _: any,
-  { userId, teacherId }: AssignTeacherProp
+  { courseId, teacherId }: AssignTeacherProp
 ) => {
-  const user = await User.findById(userId);
+  const course = await Course.findById(courseId);
   const teacher = await Teacher.findById(teacherId);
 
-  if (!user || !teacher) {
-    throw new Error("User or Teacher not found");
+  if (!course || !teacher) {
+    throw new Error(" Course or Teacher not found");
   }
 
-  teacher.user.push(user);
+  teacher.courses.push(course);
+
+  await teacher.save();
+
+  return teacher;
 };
 
 export { addUser, addCourse, assingCourse, assingTeacher, addTeacher };

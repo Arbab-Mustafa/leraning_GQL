@@ -6,6 +6,7 @@ import {
   getCourses,
   getTeachers,
   addTeacher,
+  assingTeacher,
 } from "./_res/index";
 
 export const resolvers = {
@@ -19,5 +20,6 @@ export const resolvers = {
     addCourse: addCourse,
     addTeacher: addTeacher,
     assingCourse: assingCourse,
+    assingTeacher: assingTeacher,
   },
 };
