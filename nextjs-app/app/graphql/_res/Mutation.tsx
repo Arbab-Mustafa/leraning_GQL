@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Teacher from "../../model/Teacher";
 import Course from "../../model/Course";
 import User from "../../model/User";
