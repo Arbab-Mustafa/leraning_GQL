@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.12.9",
     "@apollo/server": "^4.11.3",
     "@as-integrations/next": "^3.2.0",
     "apollo-server-micro": "^3.13.0",

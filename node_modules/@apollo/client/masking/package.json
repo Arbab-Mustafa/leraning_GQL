@@ -1,8 +1,0 @@
-{
-  "name": "@apollo/client/masking",
-  "type": "module",
-  "main": "masking.cjs",
-  "module": "index.js",
-  "types": "index.d.ts",
-  "sideEffects": false
-}
