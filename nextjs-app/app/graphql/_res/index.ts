@@ -1,6 +1,20 @@
-import { addUser } from "./Mutation";
-import { getUsers } from "./Qury";
-import { addCourse } from "./Mutation";
-import { assingCourse } from "./Mutation";
+import {
+  addUser,
+  addCourse,
+  assingCourse,
+  addTeacher,
+  assingTeacher,
+} from "./Mutation";
 
-export { getUsers, addUser, addCourse, assingCourse };
+import { getTeachers, getUsers, getCourses } from "./Qury";
+
+export {
+  getUsers,
+  addUser,
+  addCourse,
+  assingCourse,
+  getTeachers,
+  getCourses,
+  addTeacher,
+  assingTeacher,
+};

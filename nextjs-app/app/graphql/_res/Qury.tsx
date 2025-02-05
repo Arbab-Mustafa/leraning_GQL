@@ -1,3 +1,4 @@
+import Teacher from "../../model/Teacher";
 import Course from "../../model/Course";
 import User from "../../model/User";
 
@@ -15,4 +16,14 @@ const getCourses = async () => {
   return course;
 };
 
-export { getUsers, getCourses };
+const getTeachers = async () => {
+  const teacher = await Teacher.find().populate("courses").populate("user");
+
+  if (!teacher) {
+    throw new Error("No teacher found");
+  }
+
+  return teacher;
+};
+
+export { getUsers, getCourses, getTeachers };

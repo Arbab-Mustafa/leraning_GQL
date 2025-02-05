@@ -1,3 +1,4 @@
+import Teacher from "../../model/Teacher";
 import Course from "../../model/Course";
 import User from "../../model/User";
 
@@ -14,6 +15,12 @@ interface CourseProp {
 interface AssignCourseProp {
   userId: string;
   courseId: string;
+}
+
+interface AssignTeacherProp {
+  name: string;
+  userId: string;
+  teacherId: string;
 }
 
 const addUser = async (_: any, { name, email }: UserProp) => {
@@ -43,4 +50,25 @@ const assingCourse = async (_: any, { userId, courseId }: AssignCourseProp) => {
   return course;
 };
 
-export { addUser, addCourse, assingCourse };
+const addTeacher = async (_: any, { name }: AssignTeacherProp) => {
+  const newTeacher = new Teacher({ name });
+
+  await newTeacher.save();
+  return newTeacher;
+};
+
+const assingTeacher = async (
+  _: any,
+  { userId, teacherId }: AssignTeacherProp
+) => {
+  const user = await User.findById(userId);
+  const teacher = await Teacher.findById(teacherId);
+
+  if (!user || !teacher) {
+    throw new Error("User or Teacher not found");
+  }
+
+  teacher.user.push(user);
+};
+
+export { addUser, addCourse, assingCourse, assingTeacher, addTeacher };

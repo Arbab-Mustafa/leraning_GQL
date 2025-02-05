@@ -13,14 +13,24 @@ export const typeDefs = gql`
     user: [User]
   }
 
+  type Teacher {
+    id: ID!
+    name: String!
+    courses: [Course]
+    user: [User]
+  }
+
   type Query {
     getUsers: [User]!
     getCourses: [Course]!
+    getTeachers: [Teacher]!
   }
 
   type Mutation {
     addUser(name: String!, email: String!): User!
     addCourse(title: String!): Course!
+    addTeacher(name: String!): Teacher!
     assingCourse(userId: ID!, courseId: ID!): Course!
+    assingTeacher(userId: ID!, teacherId: ID!): Teacher!
   }
 `;
