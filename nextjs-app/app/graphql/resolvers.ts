@@ -7,6 +7,8 @@ import {
   getTeachers,
   addTeacher,
   assingTeacher,
+  getAnimals,
+  addAnimal,
 } from "./_res/index";
 
 export const resolvers = {
@@ -14,6 +16,7 @@ export const resolvers = {
     getUsers: getUsers,
     getCourses: getCourses,
     getTeachers: getTeachers,
+    getAnimals: getAnimals,
   },
   Mutation: {
     addUser: addUser,
@@ -21,5 +24,6 @@ export const resolvers = {
     addTeacher: addTeacher,
     assingCourse: assingCourse,
     assingTeacher: assingTeacher,
+    addAnimal: addAnimal,
   },
 };
