@@ -54,3 +54,23 @@ export const GET_TEACHERS = gql`
     }
   }
 `;
+
+export const GET_ANIMALS = gql`
+  query GetAnimals {
+    getAnimals {
+      id
+      name
+      type
+    }
+  }
+`;
+
+export const ADD_ANIMAL = gql`
+  mutation AddAnimal($name: String!, $type: String!) {
+    addAnimal(name: $name, type: $type) {
+      id
+      name
+      type
+    }
+  }
+`;
