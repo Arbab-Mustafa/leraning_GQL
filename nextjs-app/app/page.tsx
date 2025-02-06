@@ -25,7 +25,22 @@ export default function Home() {
     error: teachersError,
   } = useQuery(GET_TEACHERS);
   const [addUser] = useMutation(ADD_USER);
-  const [addCourse] = useMutation(ADD_COURSE);
+  const [addCourse] = useMutation(ADD_COURSE, {
+    update(cache, { data: { addCourse } }) {
+      const existingCourses = cache.readQuery<{ getCourses: any }>({
+        query: GET_COURSES,
+      });
+
+      if (existingCourses) {
+        cache.writeQuery({
+          query: GET_COURSES,
+          data: {
+            getCourses: [...existingCourses.getCourses, addCourse],
+          },
+        });
+      }
+    },
+  });
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
