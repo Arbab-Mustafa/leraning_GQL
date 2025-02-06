@@ -1,6 +1,7 @@
 import Teacher from "../../model/Teacher";
 import Course from "../../model/Course";
 import User from "../../model/User";
+import Animal from "../../model/Animal";
 
 const getUsers = async () => {
   return await User.find();
@@ -26,4 +27,14 @@ const getTeachers = async () => {
   return teacher;
 };
 
-export { getUsers, getCourses, getTeachers };
+const getAnimals = async () => {
+  const animal = await Animal.find();
+
+  if (!animal) {
+    return new Error("No animal found");
+  }
+
+  return animal;
+};
+
+export { getUsers, getCourses, getTeachers, getAnimals };

@@ -1,12 +1,12 @@
+import { getTeachers, getUsers, getCourses, getAnimals } from "./Qury";
 import {
   addUser,
   addCourse,
   assingCourse,
   addTeacher,
   assingTeacher,
+  addAnimal,
 } from "./Mutation";
-
-import { getTeachers, getUsers, getCourses } from "./Qury";
 
 export {
   getUsers,
@@ -17,4 +17,6 @@ export {
   getCourses,
   addTeacher,
   assingTeacher,
+  addAnimal,
+  getAnimals,
 };

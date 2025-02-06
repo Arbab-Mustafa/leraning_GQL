@@ -2,6 +2,7 @@
 import Teacher from "../../model/Teacher";
 import Course from "../../model/Course";
 import User from "../../model/User";
+import Animal from "../../model/Animal";
 
 interface UserProp {
   name: string;
@@ -22,6 +23,11 @@ interface AssignTeacherProp {
   name: string;
   courseId: string;
   teacherId: string;
+}
+
+interface AnimalProp {
+  name: string;
+  type: string;
 }
 
 const addUser = async (_: any, { name, email }: UserProp) => {
@@ -76,4 +82,19 @@ const assingTeacher = async (
   return teacher;
 };
 
-export { addUser, addCourse, assingCourse, assingTeacher, addTeacher };
+const addAnimal = async (_: any, { name, type }: AnimalProp) => {
+  const newAnimal = new Animal({ name, type });
+
+  await newAnimal.save();
+
+  return newAnimal;
+};
+
+export {
+  addUser,
+  addCourse,
+  assingCourse,
+  assingTeacher,
+  addTeacher,
+  addAnimal,
+};
