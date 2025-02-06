@@ -21,11 +21,17 @@ export const typeDefs = gql`
     courses: [Course]
     user: [User]
   }
+  type Animal {
+    id: ID!
+    name: String!
+    type: String!
+  }
 
   type Query {
     getUsers: [User]!
     getCourses: [Course]!
     getTeachers: [Teacher]!
+    getAnimals: [Animal]!
   }
 
   type Mutation {
@@ -34,5 +40,7 @@ export const typeDefs = gql`
     addTeacher(name: String!): Teacher!
     assingCourse(userId: ID!, courseId: ID!): Course!
     assingTeacher(courseId: ID!, teacherId: ID!): Teacher!
+
+    addAnimal(name: String!, type: String!): Animal!
   }
 `;
