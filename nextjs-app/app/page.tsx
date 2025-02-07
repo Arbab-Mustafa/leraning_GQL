@@ -24,7 +24,7 @@ export default function Home() {
     loading: teachersLoading,
     error: teachersError,
   } = useQuery(GET_TEACHERS);
-  const [addUser] = useMutation(ADD_USER);
+
   const [addCourse] = useMutation(ADD_COURSE, {
     update(cache, { data: { addCourse } }) {
       const existingCourses = cache.readQuery<{ getCourses: any }>({
@@ -36,6 +36,24 @@ export default function Home() {
           query: GET_COURSES,
           data: {
             getCourses: [...existingCourses.getCourses, addCourse],
+          },
+        });
+      }
+    },
+  });
+  const [addUser] = useMutation(ADD_USER, {
+    update(cache, { data: { addUser } }) {
+      const existingUser = cache.readQuery<{
+        getUsers: any;
+      }>({
+        query: GET_USERS,
+      });
+
+      if (existingUser) {
+        cache.writeQuery({
+          query: GET_USERS,
+          data: {
+            getUsers: [...existingUser.getUsers, addUser],
           },
         });
       }
