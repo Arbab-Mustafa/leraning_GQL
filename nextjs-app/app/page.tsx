@@ -84,8 +84,6 @@ export default function Home() {
     }
   };
 
-  const handleTeacher = async (event: any) => {};
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
@@ -170,11 +168,6 @@ export default function Home() {
             ))}
           </ul>
         )}
-
-        <form>
-          <input type="text" placeholder="Name" />
-          <button onClick={handleTeacher}> </button>
-        </form>
       </div>
 
       {/* new */}
