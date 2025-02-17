@@ -1,13 +1,9 @@
+import { getAllUser } from "./resolverFn";
+
 const resolvers = {
   Query: {
     hello: () => "Hello Worldc2",
-    getUsers: () => [
-      {
-        id: "1",
-        username: "user1",
-        email: "",
-      },
-    ],
+    getUsers: getAllUser,
   },
 };
 

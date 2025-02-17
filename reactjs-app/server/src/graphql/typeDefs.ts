@@ -5,7 +5,7 @@ const typeDefs = `
 
 type User {
     id: ID!
-    username: String!
+    name: String!
     email: String!
     createdAt: String!
 
