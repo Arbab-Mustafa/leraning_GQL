@@ -1,9 +1,21 @@
-import { getAllUser } from "./resolverFn";
+import {
+  assignCourseToUser,
+  createCourse,
+  createUser,
+  getAllUser,
+  getCourses,
+} from "./resolverFn";
 
 const resolvers = {
   Query: {
-    hello: () => "Hello Worldc2",
     getUsers: getAllUser,
+    getCourses: getCourses,
+  },
+
+  Mutation: {
+    createUser: createUser,
+    createCourse: createCourse,
+    assignCourseToUser: assignCourseToUser,
   },
 };
 
