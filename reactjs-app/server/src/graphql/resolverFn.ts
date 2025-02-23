@@ -1,94 +1,100 @@
-import Course from "../model/courseModel";
-import User from "../model/userModel";
+import mongoose from "mongoose";
+import Todo from "../model/todosModel";
 
-interface User {
-  name: string;
-  email: string;
-}
-
-interface Course {
+interface Todos {
+  id: string;
   title: string;
-  description: string;
+  completed: boolean;
 }
 
-interface AssingCourseToUser {
-  courseId: string;
-  userId: string;
-}
-
-export const getAllUser = async () => {
+export const getTodos = async () => {
   try {
-    const users = await User.find().populate("course", "title description");
-    console.log("Fetched Users with Populated Course:", users); // Debugging
-    return users;
+    const todos = await Todo.find();
+
+    if (!todos.length) {
+      return []; // Return empty array instead of a string
+    }
+
+    return todos; // No need to stringify, keep it as an object
   } catch (error) {
-    console.error("Error fetching users:", error);
-    throw new Error("Could not fetch users");
+    console.error("Error fetching todos:", error);
+    throw new Error("Failed to fetch todos"); // Ensure the caller gets an error
   }
 };
 
-export const createUser = async (_: any, { name, email }: User) => {
-  const user = await User.create({
-    name,
-    email,
-  });
-
-  return user;
-};
-
-export const getCourses = async () => {
-  const course = await Course.find();
-  if (!course) {
-    return "No course found";
-  }
-
-  return course;
-};
-
-export const createCourse = async (_: any, { title, description }: Course) => {
-  const course = await Course.create({
-    title,
-    description,
-  });
-
-  return course;
-};
-
-export const assignCourseToUser = async (
-  _: any,
-  { courseId, userId }: { courseId: string; userId: string }
-) => {
+export const createTodos = async (_: any, { title, completed }: Todos) => {
   try {
-    console.log("Assigning Course to User", { courseId, userId });
+    const newTodo = new Todo({
+      title,
+      completed,
+    });
 
-    // Find user
-    const user = await User.findById(userId);
-    if (!user) {
-      return { success: false, message: "User not found" };
+    await newTodo.save();
+
+    return newTodo; // Return the newly created todo
+  } catch (error) {
+    console.error("Error creating todos:", error);
+    throw new Error("Failed to create todos");
+  }
+};
+
+export const deleteTodo = async (_: any, { id }: { id: string }) => {
+  try {
+    // Check if ID is valid
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid Todo ID format");
     }
 
-    // Find course
-    const course = await Course.findById(courseId);
-    if (!course) {
-      return { success: false, message: "Course not found" };
+    // Check if Todo exists before deletion
+    const todoExists = await Todo.findById(id);
+    if (!todoExists) {
+      throw new Error("Todo not found");
     }
 
-    // Assign course
-    user.course = course._id;
-    await user.save();
-
-    // Populate course after saving user
-    const populatedUser = await User.findById(userId).populate("course");
-
-    console.log("Updated User Data:", populatedUser);
+    // Perform deletion
+    const deletedTodo = await Todo.findByIdAndDelete(id);
+    if (!deletedTodo) {
+      throw new Error("Failed to delete todo");
+    }
 
     return {
-      success: true,
-      message: "Course assigned successfully",
-      user: populatedUser,
+      id: deletedTodo._id, // Ensure ID is always returned
+      message: "Todo deleted successfully",
     };
-  } catch (error: any) {
-    console.error("Error assigning course:", error);
-    return { success: false, message: error.message };
+  } catch (error) {
+    console.error("Error deleting todo:", error);
+    if (error instanceof Error) {
+      throw new Error(error.message || "Failed to delete todo");
+    } else {
+      throw new Error("Failed to delete todo");
+    }
+  }
+};
+
+export const updateTodo = async (_: any, { id, title, completed }: Todos) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid Todo ID format");
+    }
+
+    const todo = await Todo.findById(id);
+    if (!todo) {
+      throw new Error("Todo not found");
+    }
+
+    const updated = await Todo.findByIdAndUpdate(
+      id,
+      { title, completed },
+      { new: true }
+    );
+
+    if (!updated) {
+      throw new Error("Failed to update todo");
+    }
+
+    return updated;
+  } catch (error) {
+    console.error("Error updating todos:", error);
+    throw new Error("Failed to update todos");
   }
 };

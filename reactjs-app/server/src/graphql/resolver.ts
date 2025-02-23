@@ -1,21 +1,13 @@
-import {
-  assignCourseToUser,
-  createCourse,
-  createUser,
-  getAllUser,
-  getCourses,
-} from "./resolverFn";
+import { createTodos, deleteTodo, getTodos, updateTodo } from "./resolverFn";
 
 const resolvers = {
   Query: {
-    getUsers: getAllUser,
-    getCourses: getCourses,
+    getTodos: getTodos,
   },
-
   Mutation: {
-    createUser: createUser,
-    createCourse: createCourse,
-    assignCourseToUser: assignCourseToUser,
+    createTodos: createTodos,
+    deleteTodo: deleteTodo,
+    updateTodo: updateTodo,
   },
 };
 

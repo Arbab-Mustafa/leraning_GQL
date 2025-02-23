@@ -1,50 +1,18 @@
 const typeDefs = `
-type User {
+type Todos{
     id: ID!
-    name: String!
-    email: String!
-    createdAt: String!
-    course: Course
+    title: String!
+    completed: Boolean!
 }
-
-type Course {
-    id: ID!
-    title: String
-    description: String
-    
-    }
-
-type AssignCourseResponse {
-  success: Boolean!
-  message: String!
-  user: User
-}
-
-
-
 type Query{
-    getUsers: [User]
-    getCourses: [Course]
-
+    getTodos: [Todos]
+     
 }
-
-
-type Mutation {
-createUser(name: String!, email: String!): User
-createCourse(title: String!, description: String!): Course
- assignCourseToUser(courseId: ID!, userId: ID!): AssignCourseResponse!
+type Mutation{
+     createTodos(title: String!, completed: Boolean!): Todos
+     deleteTodo( id : String!) :Todos
+     updateTodo( id : String!, title: String!, completed: Boolean!): Todos
 }
-
-
-
-
-
-
-
-
-
-
-
 `;
 
 export default typeDefs;
