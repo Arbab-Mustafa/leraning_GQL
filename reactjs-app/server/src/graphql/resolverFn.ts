@@ -1,100 +1,162 @@
-import mongoose from "mongoose";
-import Todo from "../model/todosModel";
+import Resume from "../model/userModel";
 
-interface Todos {
-  id: string;
+interface User {
+  fullName: string;
+  email: string;
+  phone: string;
+  address: string;
+  profilePicture: string;
+  summary: string;
+  socialLinks: string[];
+}
+interface Experience {
+  jobTitle: string;
+  company: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+}
+interface Education {
+  degree: string;
+  institution: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  grade: string;
+}
+interface Skill {
+  name: string;
+  level: string;
+}
+interface Project {
   title: string;
-  completed: boolean;
+  description: string;
+  technologies: string[];
+  link: string;
+  githubRepo: string;
+}
+interface Certification {
+  name: string;
+  issuer: string;
+  dateIssued: string;
+  credentialID: string;
+  link: string;
+}
+interface Language {
+  name: string;
+  proficiency: string;
+}
+interface ResumeInput {
+  id: string;
+  user: User;
+  experience: Experience[];
+  education: Education[];
+  skills: Skill[];
+  projects: Project[];
+  certifications: Certification[];
+  languages: Language[];
+  interests: string[];
 }
 
-export const getTodos = async () => {
-  try {
-    const todos = await Todo.find();
-
-    if (!todos.length) {
-      return []; // Return empty array instead of a string
-    }
-
-    return todos; // No need to stringify, keep it as an object
-  } catch (error) {
-    console.error("Error fetching todos:", error);
-    throw new Error("Failed to fetch todos"); // Ensure the caller gets an error
+export const createResume = async (
+  _: any,
+  { resume }: { resume?: ResumeInput } // Make resume optional to prevent destructuring errors
+) => {
+  if (!resume) {
+    throw new Error("Resume input is required.");
   }
-};
 
-export const createTodos = async (_: any, { title, completed }: Todos) => {
   try {
-    const newTodo = new Todo({
-      title,
-      completed,
+    // Destructuring all fields with default values to avoid errors
+    const {
+      user: {
+        fullName = "",
+        email = "",
+        phone = "",
+        address = "",
+        profilePicture = "",
+        summary = "",
+        socialLinks = [],
+      } = {},
+      experience = [],
+      education = [],
+      skills = [],
+      projects = [],
+      certifications = [],
+      languages = [],
+      interests = [],
+    } = resume;
+
+    // Create a new Resume document
+    const newResume = new Resume({
+      user: {
+        fullName,
+        email,
+        phone,
+        address,
+        profilePicture,
+        summary,
+        socialLinks,
+      },
+      experience: experience.map((exp) => ({
+        jobTitle: exp.jobTitle || "",
+        company: exp.company || "",
+        location: exp.location || "",
+        startDate: exp.startDate || "",
+        endDate: exp.endDate || "",
+        description: exp.description || "",
+      })),
+      education: education.map((edu) => ({
+        degree: edu.degree || "",
+        institution: edu.institution || "",
+        location: edu.location || "",
+        startDate: edu.startDate || "",
+        endDate: edu.endDate || "",
+        grade: edu.grade || "",
+      })),
+      skills: skills.map((skill) => ({
+        name: skill.name || "",
+        level: skill.level || "",
+      })),
+      projects: projects.map((proj) => ({
+        title: proj.title || "",
+        description: proj.description || "",
+        technologies: proj.technologies || [],
+        link: proj.link || "",
+        githubRepo: proj.githubRepo || "",
+      })),
+      certifications: certifications.map((cert) => ({
+        name: cert.name || "",
+        issuer: cert.issuer || "",
+        dateIssued: cert.dateIssued || "",
+        credentialID: cert.credentialID || "",
+        link: cert.link || "",
+      })),
+      languages: languages.map((lang) => ({
+        name: lang.name || "",
+        proficiency: lang.proficiency || "",
+      })),
+      interests,
     });
 
-    await newTodo.save();
-
-    return newTodo; // Return the newly created todo
+    // Save to the database
+    await newResume.save();
+    return newResume;
   } catch (error) {
-    console.error("Error creating todos:", error);
-    throw new Error("Failed to create todos");
+    console.error("Error creating resume:", error);
+    throw new Error("Failed to create resume");
   }
 };
 
-export const deleteTodo = async (_: any, { id }: { id: string }) => {
+export const getResume = async (_: any, { id }: { id: string }) => {
   try {
-    // Check if ID is valid
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new Error("Invalid Todo ID format");
+    const resume = await Resume.findById(id);
+    if (!resume) {
+      throw new Error("Resume not found");
     }
-
-    // Check if Todo exists before deletion
-    const todoExists = await Todo.findById(id);
-    if (!todoExists) {
-      throw new Error("Todo not found");
-    }
-
-    // Perform deletion
-    const deletedTodo = await Todo.findByIdAndDelete(id);
-    if (!deletedTodo) {
-      throw new Error("Failed to delete todo");
-    }
-
-    return {
-      id: deletedTodo._id, // Ensure ID is always returned
-      message: "Todo deleted successfully",
-    };
+    return resume;
   } catch (error) {
-    console.error("Error deleting todo:", error);
-    if (error instanceof Error) {
-      throw new Error(error.message || "Failed to delete todo");
-    } else {
-      throw new Error("Failed to delete todo");
-    }
-  }
-};
-
-export const updateTodo = async (_: any, { id, title, completed }: Todos) => {
-  try {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new Error("Invalid Todo ID format");
-    }
-
-    const todo = await Todo.findById(id);
-    if (!todo) {
-      throw new Error("Todo not found");
-    }
-
-    const updated = await Todo.findByIdAndUpdate(
-      id,
-      { title, completed },
-      { new: true }
-    );
-
-    if (!updated) {
-      throw new Error("Failed to update todo");
-    }
-
-    return updated;
-  } catch (error) {
-    console.error("Error updating todos:", error);
-    throw new Error("Failed to update todos");
+    console.error(error);
   }
 };

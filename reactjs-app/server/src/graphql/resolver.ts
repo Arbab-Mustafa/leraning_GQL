@@ -1,13 +1,11 @@
-import { createTodos, deleteTodo, getTodos, updateTodo } from "./resolverFn";
+import { createResume, getResume } from "./resolverFn";
 
 const resolvers = {
   Query: {
-    getTodos: getTodos,
+    getResume: getResume,
   },
   Mutation: {
-    createTodos: createTodos,
-    deleteTodo: deleteTodo,
-    updateTodo: updateTodo,
+    createResume: createResume,
   },
 };
 
