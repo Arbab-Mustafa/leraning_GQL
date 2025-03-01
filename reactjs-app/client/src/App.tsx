@@ -1,15 +1,16 @@
-import "./App.css";
-import TodosForm from "./TodosForm";
-import { AllTodos } from "./AllTodos";
+import ResumeForm from "./components/ResumeForm";
+import { Resume } from "./types/Resume";
 
-function App() {
+const App = () => {
+  const handleFormSubmit = (data: Resume) => {
+    console.log("Resume Data:", data);
+  };
+
   return (
-    <>
-      <h2>My Todos</h2>
-      <AllTodos />
-      <TodosForm />
-    </>
+    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
+      <ResumeForm onSubmit={handleFormSubmit} />
+    </div>
   );
-}
+};
 
 export default App;
