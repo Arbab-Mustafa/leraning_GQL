@@ -17,8 +17,8 @@ export interface Experience {
   jobTitle: string;
   company: string;
   location: string;
-  startDate: string;
-  endDate: string;
+  startDate: string; // Ensure ISO format before submission
+  endDate: string; // Ensure ISO format before submission
   description: string;
 }
 
@@ -26,14 +26,20 @@ export interface Education {
   degree: string;
   institution: string;
   location: string;
-  startDate: string;
-  endDate: string;
+  startDate: string; // Ensure ISO format
+  endDate: string; // Ensure ISO format
   grade?: string;
+}
+
+export enum SkillLevel {
+  Beginner = "Beginner",
+  Intermediate = "Intermediate",
+  Advanced = "Advanced",
 }
 
 export interface Skill {
   name: string;
-  level: string;
+  level: SkillLevel;
 }
 
 export interface Project {
@@ -46,15 +52,22 @@ export interface Project {
 
 export interface Certification {
   name: string;
-  issuer: string;
-  dateIssued: string;
+  issuer: string; // ✅ Fixed `issuedBy` → `issuer`
+  dateIssued: string; // Ensure ISO format
   credentialID?: string;
   link?: string;
 }
 
+export enum LanguageProficiency {
+  Basic = "Basic",
+  Intermediate = "Intermediate",
+  Fluent = "Fluent",
+  Native = "Native",
+}
+
 export interface Language {
   name: string;
-  proficiency: string;
+  proficiency: LanguageProficiency;
 }
 
 export interface Resume {

@@ -1,8 +1,9 @@
-import { createResume, getResume } from "./resolverFn";
+import { createResume, getResume, getAllResume } from "./resolverFn";
 
 const resolvers = {
   Query: {
     getResume: getResume,
+    getAllResume: getAllResume,
   },
   Mutation: {
     createResume: createResume,

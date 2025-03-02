@@ -9,6 +9,9 @@ const steps = [
   "Skills",
   "Education",
   "Projects",
+  "Certifications",
+  "Languages",
+  "Interests",
 ];
 
 const ResumeForm = ({ onSubmit }: { onSubmit: (data: Resume) => void }) => {
@@ -19,15 +22,25 @@ const ResumeForm = ({ onSubmit }: { onSubmit: (data: Resume) => void }) => {
     control,
     name: "experience",
   });
-
   const { fields: skills, append: addSkill } = useFieldArray({
     control,
     name: "skills",
   });
-
   const { fields: projects, append: addProject } = useFieldArray({
     control,
     name: "projects",
+  });
+  const { fields: certifications, append: addCertification } = useFieldArray({
+    control,
+    name: "certifications",
+  });
+  const { fields: languages, append: addLanguage } = useFieldArray({
+    control,
+    name: "languages",
+  });
+  const { fields: interests, append: addInterest } = useFieldArray({
+    control,
+    name: "interests",
   });
 
   return (
@@ -55,7 +68,7 @@ const ResumeForm = ({ onSubmit }: { onSubmit: (data: Resume) => void }) => {
       {/* Step 2: Experience */}
       {step === 1 && (
         <div className="space-y-4">
-          {experiences.map((exp, index) => (
+          {experiences.map((_, index) => (
             <div key={index} className="border-b pb-4">
               <InputField
                 label="Job Title"
@@ -102,7 +115,7 @@ const ResumeForm = ({ onSubmit }: { onSubmit: (data: Resume) => void }) => {
       {/* Step 3: Skills */}
       {step === 2 && (
         <div className="space-y-4">
-          {skills.map((skill, index) => (
+          {skills.map((_, index) => (
             <div key={index} className="border-b pb-2">
               <InputField
                 label="Skill Name"
@@ -155,7 +168,7 @@ const ResumeForm = ({ onSubmit }: { onSubmit: (data: Resume) => void }) => {
       {/* Step 5: Projects */}
       {step === 4 && (
         <div className="space-y-4">
-          {projects.map((project, index) => (
+          {projects.map((_, index) => (
             <div key={index} className="border-b pb-2">
               <InputField
                 label="Project Title"
@@ -192,7 +205,84 @@ const ResumeForm = ({ onSubmit }: { onSubmit: (data: Resume) => void }) => {
         </div>
       )}
 
-      {/* Navigation Buttons */}
+      {/* Step 6: Certifications */}
+      {step === 5 && (
+        <div className="space-y-4">
+          {certifications.map((_, index) => (
+            <div key={index} className="border-b pb-2">
+              <InputField
+                label="Certification Name"
+                register={register(`certifications.${index}.name`)}
+              />
+              <InputField
+                label="Issued By"
+                register={register(`certifications.${index}.issuedBy`)}
+              />
+              <InputField
+                label="Date Issued"
+                type="date"
+                register={register(`certifications.${index}.dateIssued`)}
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() =>
+              addCertification({ name: "", issuedBy: "", dateIssued: "" })
+            }
+            className="w-full bg-green-500 text-white py-2 mt-2 rounded-lg"
+          >
+            + Add Certification
+          </button>
+        </div>
+      )}
+
+      {/* Step 7: Languages */}
+      {step === 6 && (
+        <div className="space-y-4">
+          {languages.map((_, index) => (
+            <div key={index} className="border-b pb-2">
+              <InputField
+                label="Language"
+                register={register(`languages.${index}.name`)}
+              />
+              <InputField
+                label="Proficiency Level"
+                register={register(`languages.${index}.proficiency`)}
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => addLanguage({ name: "", proficiency: "" })}
+            className="w-full bg-green-500 text-white py-2 mt-2 rounded-lg"
+          >
+            + Add Language
+          </button>
+        </div>
+      )}
+
+      {/* Step 8: Interests */}
+      {step === 7 && (
+        <div className="space-y-4">
+          {interests.map((_, index) => (
+            <InputField
+              key={index}
+              label="Interest"
+              register={register(`interests.${index}`)}
+            />
+          ))}
+          <button
+            type="button"
+            onClick={() => addInterest("")}
+            className="w-full bg-green-500 text-white py-2 mt-2 rounded-lg"
+          >
+            + Add Interest
+          </button>
+        </div>
+      )}
+
+      {/* Navigation */}
       <div className="flex justify-between mt-6">
         {step > 0 && (
           <button

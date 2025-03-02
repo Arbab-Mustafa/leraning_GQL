@@ -160,3 +160,15 @@ export const getResume = async (_: any, { id }: { id: string }) => {
     console.error(error);
   }
 };
+
+export const getAllResume = async () => {
+  try {
+    const allResume = await Resume.find();
+    if (!allResume) {
+      throw new Error("No resumes found");
+    }
+    return allResume;
+  } catch (error) {
+    console.error(error);
+  }
+};

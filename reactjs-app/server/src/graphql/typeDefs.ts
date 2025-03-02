@@ -129,6 +129,7 @@ type User {
   }
      type Query {
     getResume(id: ID!): Resume
+    getAllResume: [Resume]
   }
   type Mutation {
   createResume(resume: ResumeInput!): Resume
