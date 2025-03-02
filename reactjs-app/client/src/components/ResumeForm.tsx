@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Resume } from "../types/Resume";
 import InputField from "./Input";
-import SectionTitle from "./SectionTitle";
 
 const steps = [
   "Personal Info",

@@ -7,7 +7,12 @@ interface InputProps {
   register: any;
 }
 
-const InputField: FC<InputProps> = ({ label, type = "text", placeholder, register }) => {
+const InputField: FC<InputProps> = ({
+  label,
+  type = "text",
+  placeholder,
+  register,
+}) => {
   return (
     <div className="mb-4">
       <label className="block text-gray-700 font-medium">{label}</label>
